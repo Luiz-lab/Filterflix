@@ -2,26 +2,26 @@ package java.com.filterflix.model;
 
 import java.util.ArrayList;
 
-public class Perfil {
-    private ArrayList<Midia> assistidos;
-    private Catalogo catalogo;
+public class PerfilModel {
+    private ArrayList<MidiaModel> assistidos;
+    private CatalogoModel catalogo;
     private boolean isInfantil;
 
-    public Perfil(Catalogo catalogo, boolean isInfantil) {
+    public PerfilModel(CatalogoModel catalogo, boolean isInfantil) {
         this.assistidos = new ArrayList<>();
         this.catalogo = catalogo;
         this.isInfantil = isInfantil;
     }
 
-    public ArrayList<Midia> getAssistidos() {
+    public ArrayList<MidiaModel> getAssistidos() {
         return assistidos;
     }
 
-    public void adicionarMidiaAssistida(Midia midia) {
+    public void adicionarMidiaAssistida(MidiaModel midia) {
         this.assistidos.add(midia);
     }
 
-    public Catalogo getCatalogo() {
+    public CatalogoModel getCatalogo() {
         return catalogo;
     }
 

@@ -1,12 +1,11 @@
 package java.com.filterflix.service;
 
-import java.com.filterflix.Enum.Operacoes;
-import java.com.filterflix.model.MidiaModel;
+import java.com.filterflix.Enum.OperacoesEnum;
 
 public class OperacoesServiceImpl implements OperacoesService{
 
     @Override
-    public boolean executarOperacao(Operacoes operacao) {
+    public boolean executarOperacao(OperacoesEnum operacao) {
         return true;
     }
 

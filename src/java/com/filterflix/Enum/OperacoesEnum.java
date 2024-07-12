@@ -1,6 +1,6 @@
 package java.com.filterflix.Enum;
 
-public enum Operacoes {
+public enum OperacoesEnum {
     COMECAR,
     PAUSAR,
     PARAR,

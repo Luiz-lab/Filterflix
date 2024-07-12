@@ -2,13 +2,13 @@ package java.com.filterflix.model;
 
 import java.util.ArrayList;
 
-public class Usuario {
+public class UsuarioModel {
     private String nome;
     private String email;
     private String senha;
-    private ArrayList<Perfil> perfis;
+    private ArrayList<PerfilModel> perfis;
 
-    public Usuario(String nome, String email, String senha) {
+    public UsuarioModel(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -39,11 +39,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public ArrayList<Perfil> getPerfis() {
+    public ArrayList<PerfilModel> getPerfis() {
         return perfis;
     }
 
-    public void adicionarPerfil(Perfil perfil) {
+    public void adicionarPerfil(PerfilModel perfil) {
         this.perfis.add(perfil);
     }
 }
