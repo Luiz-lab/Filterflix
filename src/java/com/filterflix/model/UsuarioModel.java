@@ -1,14 +1,15 @@
 package java.com.filterflix.model;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-public class UsuarioModel {
+public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private ArrayList<PerfilModel> perfis;
+    private ArrayList<Perfil<?>> perfis;
 
-    public UsuarioModel(String nome, String email, String senha) {
+    public Usuario(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -39,11 +40,21 @@ public class UsuarioModel {
         this.senha = senha;
     }
 
-    public ArrayList<PerfilModel> getPerfis() {
+    public ArrayList<Perfil<?>> getPerfis() {
         return perfis;
     }
 
-    public void adicionarPerfil(PerfilModel perfil) {
+    public void adicionarPerfil(Perfil<?> perfil) {
         this.perfis.add(perfil);
+    }
+
+    public void removerPerfil(Perfil<?> perfil) {
+        this.perfis.remove(perfil);
+    }
+
+    public Optional<Perfil<?>> buscarPerfilPorTipo(boolean isInfantil) {
+        return perfis.stream()
+                .filter(perfil -> perfil.isInfantil() == isInfantil)
+                .findFirst();
     }
 }
