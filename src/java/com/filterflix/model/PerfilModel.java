@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Perfil<T extends Midia> {
+public class PerfilModel<T extends MidiaModel> {
     private List<T> assistidos;
-    private Catalogo catalogo;
+    private CatalogoModel catalogo;
     private boolean isInfantil;
 
-    public Perfil(Catalogo catalogo, boolean isInfantil) {
+    public PerfilModel(CatalogoModel catalogo, boolean isInfantil) {
         this.assistidos = new ArrayList<>();
         this.catalogo = catalogo;
         this.isInfantil = isInfantil;
@@ -27,7 +27,7 @@ public class Perfil<T extends Midia> {
         this.assistidos.remove(midia);
     }
 
-    public Catalogo getCatalogo() {
+    public CatalogoModel getCatalogo() {
         return catalogo;
     }
 
@@ -39,7 +39,7 @@ public class Perfil<T extends Midia> {
         this.isInfantil = isInfantil;
     }
 
-    public List<T> buscarMidiasGenero(Genero genero) {
+    public List<T> buscarMidiasGenero(GeneroModel genero) {
         return assistidos.stream()
                 .filter(midia -> midia.getGeneros().contains(genero))
                 .collect(Collectors.toList());

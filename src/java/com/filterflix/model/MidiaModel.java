@@ -25,4 +25,8 @@ public abstract class MidiaModel {
     public ArrayList<GeneroModel> getGeneros() {
         return generos;
     }
+
+    public double getAvaliacao() {
+        return avaliacao;
+    }
 }
