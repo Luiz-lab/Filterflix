@@ -1,5 +1,9 @@
 package java.com.filterflix.model;
 
 public class GeneroModel {
-    String nome;
+    private String nome;
+
+    public String getNome() {
+        return nome;
+    }
 }

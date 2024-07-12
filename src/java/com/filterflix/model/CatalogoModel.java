@@ -60,4 +60,22 @@ public class CatalogoModel {
         }
         return midias;
     }
+
+    public void inserirMidia(MidiaModel m) {
+        midias.add(m);
+    }
+
+    public void removerMidia(MidiaModel m) {
+        midias.remove(m);
+    }
+
+    public void listarMidias() {
+        for (MidiaModel m : midias) {
+            m.imprimirMidia();
+        }
+    }
+
+    public MidiaModel selecionarMidia(int id) {
+        return midias.get(id);
+    }
 }
