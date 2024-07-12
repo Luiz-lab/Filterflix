@@ -1,4 +1,4 @@
-package java.com.netflix.service;
+package java.com.filterflix.service;
 
 public interface UserServiceImpl {
 

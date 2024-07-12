@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NetFlix_G4.iml" filepath="$PROJECT_DIR$/NetFlix_G4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Filterflix.iml" filepath="$PROJECT_DIR$/Filterflix.iml" />
     </modules>
   </component>
 </project>
