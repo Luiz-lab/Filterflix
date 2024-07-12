@@ -26,15 +26,7 @@ public abstract class MidiaModel {
         return generos;
     }
 
-    public void imprimirMidia() {
-        System.out.println(this.nome);
-        System.out.print("\nGêneros: ");
-        for (GeneroModel g : generos) {
-            System.out.print(g.getNome()+" ");
-        }
-        System.out.println("Nota: "+this.avaliacao);
-        System.out.println("Classificação indicativa: "+this.classificacao);
-        System.out.println("Diretor: "+this.diretor);
-        System.out.println("Data de lançamento: "+this.lancamento);
+    public double getAvaliacao() {
+        return avaliacao;
     }
 }
