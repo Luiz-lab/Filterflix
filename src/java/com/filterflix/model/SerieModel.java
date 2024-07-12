@@ -1,14 +1,14 @@
-package model;
+package java.com.filterflix.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Serie extends Midia{
+public class SerieModel extends MidiaModel{
 
-    private ArrayList<Video> episodios;
+    private ArrayList<VideoModel> episodios;
     private int contEpisodio = 0;
 
-    public Serie(String nome, ArrayList<Genero> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento, ArrayList<Video> episodios) {
+    public SerieModel(String nome, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento, ArrayList<VideoModel> episodios) {
         super(nome, generos, avaliacao, classificacao, diretor, lancamento);
 
         this.episodios = episodios;

@@ -1,6 +1,6 @@
-package model;
+package java.com.filterflix.model;
 
-public class Video {
+public class VideoModel {
     private String video;
     private int duracao;
 

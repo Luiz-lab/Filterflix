@@ -1,17 +1,17 @@
-package model;
+package java.com.filterflix.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Midia {
+public abstract class MidiaModel {
     private String nome;
-    private ArrayList<Genero> generos;
+    private ArrayList<GeneroModel> generos;
     private double avaliacao;
     private String classificacao;
     private String diretor;
     private LocalDate lancamento;
 
-    public Midia(String nome, ArrayList<Genero> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento) {
+    public MidiaModel(String nome, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento) {
         this.nome = nome;
         this.generos = generos;
         this.avaliacao = avaliacao;
@@ -22,7 +22,7 @@ public abstract class Midia {
 
     public abstract void assistir();
 
-    public ArrayList<Genero> getGeneros() {
+    public ArrayList<GeneroModel> getGeneros() {
         return generos;
     }
 }
