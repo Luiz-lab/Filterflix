@@ -1,8 +1,14 @@
 package java.com.filterflix.model;
 
+import lombok.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public abstract class MidiaModel {
     private String nome;
     private ArrayList<GeneroModel> generos;
@@ -26,7 +32,7 @@ public abstract class MidiaModel {
         return generos;
     }
 
-    public double getAvaliacao() {
-        return avaliacao;
+    public void imprimirMidia() {
+
     }
 }
