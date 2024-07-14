@@ -40,11 +40,11 @@ public class OperacoesServiceImpl implements OperacoesService{
                 return true;
             }
             case ALTERAR_LEGENDA -> {
-                // Lógica para alterar a legenda
+                // Falta adicionar logica pra alterar legenda
                 return true;
             }
             case ALTERAR_AUDIO -> {
-                // Lógica para alterar o áudio
+                // Falta adicionar logica pra alterar o audio
                 return true;
             }
             default -> throw new IllegalArgumentException("Operação não suportada: " + operacao);
@@ -60,7 +60,7 @@ public class OperacoesServiceImpl implements OperacoesService{
 
             operacoesModel.setVelocidade(velocidade);
         }
-        return false;
+        return true;
     }
 
     @Override

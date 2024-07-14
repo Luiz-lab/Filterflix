@@ -1,12 +1,12 @@
 package java.com.filterflix.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Data
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OperacoesModel {
     private String operacoes;
     private boolean comecar;
@@ -18,7 +18,5 @@ public class OperacoesModel {
     private boolean proximoEpisodio;
     private boolean episodioAnterior;
 
-    public OperacoesModel() {
-    }
 
 }
