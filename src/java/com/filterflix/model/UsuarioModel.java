@@ -1,16 +1,22 @@
 package java.com.filterflix.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class UsuarioModel {
     private String nome;
     private String email;
     private String senha;
     private ArrayList<PerfilModel<?>> perfis;
 
-    public UsuarioModel(String nome, String email, String senha) {
-        this.nome = nome;
+    public UsuarioModel(String email, String senha) {
         this.email = email;
         this.senha = senha;
         this.perfis = new ArrayList<>();
