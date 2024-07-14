@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class CatalogoModel {
     private ArrayList<MidiaModel> midias;
 
-    public CatalogoModel(ArrayList<MidiaModel> midias) {
+    public CatalogoModel() {
         this.midias = midias;
     }
 
