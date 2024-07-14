@@ -28,9 +28,6 @@ public abstract class MidiaModel {
         this.lancamento = lancamento;
     }
 
-    public MidiaModel() {
-
-    }
 
     public abstract void assistir();
 
