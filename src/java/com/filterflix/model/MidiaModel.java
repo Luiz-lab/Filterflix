@@ -1,17 +1,13 @@
 package java.com.filterflix.model;
 
-import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+@SuppressWarnings("ALL")
 
-@Data
-@Getter
-@Setter
-@NoArgsConstructor
 public abstract class MidiaModel {
     private String titulo;
-    private ArrayList<GeneroModel> genero;
+    private String genero;
     private double avaliacao;
     private String classificacao;
     private String diretor;
@@ -21,7 +17,7 @@ public abstract class MidiaModel {
 
     public MidiaModel(String titulo, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento) {
         this.titulo = titulo;
-        this.genero = generos;
+        this.genero = String.valueOf(generos);
         this.avaliacao = avaliacao;
         this.classificacao = classificacao;
         this.diretor = diretor;
@@ -34,7 +30,7 @@ public abstract class MidiaModel {
 
     public abstract void assistir();
 
-    public ArrayList<GeneroModel> getGeneros() {
+    public String getGeneros() {
         return genero;
     }
 
@@ -49,7 +45,7 @@ public abstract class MidiaModel {
         this.titulo = titulo;
     }
 
-    public ArrayList<GeneroModel> getGenero() {
+    public String getGenero() {
         return genero;
     }
 
@@ -95,10 +91,6 @@ public abstract class MidiaModel {
 
     public double getDuracao() {
         return duracao;
-    }
-
-    public double getAvaliacao() {
-    return  avaliacao;
     }
 
 }
