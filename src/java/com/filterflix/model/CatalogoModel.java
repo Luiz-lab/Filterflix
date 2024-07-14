@@ -1,11 +1,13 @@
 package java.com.filterflix.model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CatalogoModel {
     private ArrayList<MidiaModel> midias;
 
-    public CatalogoModel(ArrayList<MidiaModel> midias) {
+    public CatalogoModel() {
         this.midias = midias;
     }
 
@@ -29,36 +31,44 @@ public class CatalogoModel {
         return filmes;
     }
 
-    public ArrayList<FilmeModel> getFilmesGenero(GeneroModel genero) {
-        ArrayList<MidiaModel> midiasTemp = getMidiaGenero(genero);
+    public List<FilmeModel> getFilmesGenero(GeneroModel genero) {
+/*        ArrayList<MidiaModel> midiasTemp = getMidiaGenero(genero);
         ArrayList<FilmeModel> filmes = new ArrayList<>();
         for (MidiaModel m: midiasTemp) {
             if (m instanceof FilmeModel) {
                 filmes.add((FilmeModel)m);
             }
-        }
-        return filmes;
+        }*/
+        return getMidiaGenero(genero).stream()
+                .filter(f-> f instanceof FilmeModel)
+                .map(f-> (FilmeModel) f)
+                .collect(Collectors.toList());
     }
 
-    public ArrayList<SerieModel> getSerieGenero(GeneroModel genero) {
-        ArrayList<MidiaModel> midiasTemp = getMidiaGenero(genero);
+    public List<SerieModel> getSerieGenero(GeneroModel genero) {
+/*        ArrayList<MidiaModel> midiasTemp = getMidiaGenero(genero);
         ArrayList<SerieModel> series = new ArrayList<>();
         for (MidiaModel m: midiasTemp) {
             if (m instanceof SerieModel) {
                 series.add((SerieModel) m);
             }
-        }
-        return series;
+        }*/
+        return getMidiaGenero(genero).stream()
+                .filter(s-> s instanceof SerieModel)
+                .map(s->(SerieModel) s)
+                .collect(Collectors.toList());
     }
 
-    public ArrayList<MidiaModel> getMidiaGenero(GeneroModel genero) {
-        ArrayList<MidiaModel> midias = new ArrayList<>();
+    public List <MidiaModel> getMidiaGenero(GeneroModel genero) {
+        /*        ArrayList<MidiaModel> midias = new ArrayList<>();
         for (MidiaModel m: midias) {
             if (m.getGeneros().contains(genero)) {
                 midias.add(m);
             }
-        }
-        return midias;
+        }*/
+        return midias.stream()
+                .filter(m-> m.getGeneros().contains(genero))
+                .collect(Collectors.toList());
     }
 
     public void inserirMidia(MidiaModel m) {
@@ -70,9 +80,11 @@ public class CatalogoModel {
     }
 
     public void listarMidias() {
-        for (MidiaModel m : midias) {
+        midias.forEach(System.out::println);
+         /*
+            for (MidiaModel m : midias) {
             m.imprimirMidia();
-        }
+        }*/
     }
 
     public MidiaModel selecionarMidia(int id) {
