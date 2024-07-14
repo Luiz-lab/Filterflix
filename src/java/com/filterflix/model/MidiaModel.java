@@ -11,7 +11,8 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public abstract class MidiaModel {
     private String titulo;
-    private ArrayList<GeneroModel> genero;
+    private ArrayList<GeneroModel> generos;
+    private String genero;
     private double avaliacao;
     private String classificacao;
     private String diretor;
@@ -21,7 +22,7 @@ public abstract class MidiaModel {
 
     public MidiaModel(String titulo, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento) {
         this.titulo = titulo;
-        this.genero = generos;
+        this.generos = generos;
         this.avaliacao = avaliacao;
         this.classificacao = classificacao;
         this.diretor = diretor;
@@ -32,7 +33,7 @@ public abstract class MidiaModel {
     public abstract void assistir();
 
     public ArrayList<GeneroModel> getGeneros() {
-        return genero;
+        return generos;
     }
 
     public void imprimirMidia() {
@@ -47,7 +48,7 @@ public abstract class MidiaModel {
     }
 
     public ArrayList<GeneroModel> getGenero() {
-        return genero;
+        return generos;
     }
 
     public void setGenero(String genero) {

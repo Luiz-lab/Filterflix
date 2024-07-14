@@ -60,7 +60,7 @@ public class OperacoesServiceImpl implements OperacoesService{
 
             operacoesModel.setVelocidade(velocidade);
         }
-        return false;
+        return true;
     }
 
     @Override
