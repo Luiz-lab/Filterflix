@@ -1,5 +1,5 @@
 package java.com.filterflix.service;
 
-public interface UserServiceImpl {
+public interface UsuarioServiceImp {
 
 }

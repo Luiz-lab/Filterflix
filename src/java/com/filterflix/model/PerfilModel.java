@@ -8,11 +8,16 @@ public class PerfilModel<T extends MidiaModel> {
     private List<T> assistidos;
     private CatalogoModel catalogo;
     private boolean isInfantil;
+    private String nome;
 
     public PerfilModel(CatalogoModel catalogo, boolean isInfantil) {
         this.assistidos = new ArrayList<>();
         this.catalogo = catalogo;
         this.isInfantil = isInfantil;
+    }
+
+    public PerfilModel() {
+
     }
 
     public List<T> getAssistidos() {
@@ -49,5 +54,13 @@ public class PerfilModel<T extends MidiaModel> {
         return assistidos.stream()
                 .filter(midia -> midia.getAvaliacao() >= avaliacaoMinima)
                 .collect(Collectors.toList());
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

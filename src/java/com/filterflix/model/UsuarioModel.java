@@ -9,7 +9,7 @@ public class UsuarioModel {
     private String senha;
     private ArrayList<PerfilModel<?>> perfis;
 
-    public UsuarioModel(String nome, String email, String senha) {
+    public UsuarioModel(String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
