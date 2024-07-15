@@ -4,6 +4,7 @@ import java.com.filterflix.model.*;
 import java.com.filterflix.service.MidiaService;
 import java.com.filterflix.service.UsuarioService;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -22,7 +23,7 @@ public class Menu {
             System.out.println("1. Entrar");
             System.out.println("2. Criar Conta");
             int escolha = scanner.nextInt();
-            scanner.nextLine(); // Consumir a nova linha
+            scanner.nextLine();
 
             switch (escolha) {
                 case 1:
@@ -66,7 +67,7 @@ public class Menu {
         System.out.println("1. Criar Perfil");
         System.out.println("2. Selecionar Perfil");
         int escolha = scanner.nextInt();
-        scanner.nextLine(); // Consumir a nova linha
+        scanner.nextLine();
 
         switch (escolha) {
             case 1:
@@ -105,7 +106,7 @@ public class Menu {
             System.out.println((i + 1) + ". " + perfis.get(i).getNome());
         }
         int escolha = scanner.nextInt();
-        scanner.nextLine(); // Consumir a nova linha
+        scanner.nextLine();
 
         if (escolha > 0 && escolha <= perfis.size()) {
             PerfilModel perfilSelecionado = perfis.get(escolha - 1);
@@ -122,7 +123,7 @@ public class Menu {
             System.out.println("2. Adicionar Mídia");
             System.out.println("3. Sair");
             int escolha = scanner.nextInt();
-            scanner.nextLine(); // Consumir a nova linha
+            scanner.nextLine();
 
             switch (escolha) {
                 case 1:
@@ -160,7 +161,7 @@ public class Menu {
         String genero = scanner.nextLine();
         System.out.print("Digite a avaliação: ");
         double avaliacao = scanner.nextDouble();
-        scanner.nextLine(); // Consumir a nova linha
+        scanner.nextLine();
         System.out.print("Digite a classificação: ");
         String classificacao = scanner.nextLine();
         System.out.print("Digite a data de lançamento (YYYY-MM-DD): ");

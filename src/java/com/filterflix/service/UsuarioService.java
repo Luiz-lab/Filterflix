@@ -2,13 +2,14 @@ package java.com.filterflix.service;
 
 import java.com.filterflix.model.UsuarioModel;
 import java.com.filterflix.repository.UsuarioRepository;
-import java.com.filterflix.system.Autenticavel;
 
 public class UsuarioService {
     private UsuarioRepository usuarioRepository;
+    private UsuarioModel usuarioLogado; // Variável para armazenar o usuário logado
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioLogado = null; // Inicialmente, não há usuário logado
     }
 
     public void registrarUsuario(String email, String senha) {
@@ -18,6 +19,14 @@ public class UsuarioService {
 
     public boolean autenticar(String email, String senha) {
         UsuarioModel usuario = usuarioRepository.encontrarUsuarioPorEmail(email);
-        return usuario != null && usuario.getSenha().equals(senha);
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            usuarioLogado = usuario; // Armazena o usuário logado
+            return true;
+        }
+        return false;
+    }
+
+    public UsuarioModel obterUsuarioLogado() {
+        return usuarioLogado;
     }
 }
