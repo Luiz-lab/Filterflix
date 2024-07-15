@@ -1,11 +1,25 @@
 package java.com.filterflix.service;
 
+import javax.xml.transform.Source;
 import java.com.filterflix.Enum.OperacoesEnum;
+import java.com.filterflix.model.MidiaModel;
 import java.com.filterflix.model.OperacoesModel;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class OperacoesServiceImpl implements OperacoesService{
 
-    OperacoesModel operacoesModel = new OperacoesModel();
+    OperacoesModel operacoesModel;
+    private Timer timer;
+    private TimerTask timerTask;
+    private MidiaModel midiaModel;
+
+    public OperacoesServiceImpl(MidiaModel midiaModel) {
+        this.midiaModel = midiaModel;
+        this.operacoesModel = new OperacoesModel();
+        operacoesModel.setDuracao(midiaModel.getDuracao());
+    }
 
     @Override
     public boolean executarOperacao(OperacoesEnum operacao) {
@@ -14,15 +28,15 @@ public class OperacoesServiceImpl implements OperacoesService{
         }
         switch (operacao) {
             case COMECAR -> {
-                operacoesModel.setComecar(true);
+                iniciar();
                 return true;
             }
             case PAUSAR -> {
-                operacoesModel.setPausar(true);
+                pausar();
                 return true;
             }
             case PARAR -> {
-                operacoesModel.setParar(true);
+                parar();
                 return true;
             }
             case AVANCO_RAPIDO -> {
@@ -53,19 +67,69 @@ public class OperacoesServiceImpl implements OperacoesService{
 
     @Override
     public boolean retroceder(int velocidade) {
-        if (velocidade == 0){
+        if (velocidade <= 0){
             return false;
         }
-        else {
-
-            operacoesModel.setVelocidade(velocidade);
-        }
+        int novoTempo  = operacoesModel.getTempoAtual() - velocidade;
+        operacoesModel.setTempoAtual(Math.max(novoTempo,0));
+        System.out.println("Retrocesso: " + formatarTempo(operacoesModel.getTempoAtual()));
+        operacoesModel.setVelocidade(velocidade);
         return true;
     }
 
     @Override
     public boolean avancar_rapido(int velocidade) {
-        return false;
+        if (velocidade <= 0){
+            return false;
+        }
+        int novoTempo = operacoesModel.getTempoAtual() - velocidade;
+        operacoesModel.setTempoAtual(Math.min(novoTempo,operacoesModel.getDuracao()));
+        System.out.println("Avanço rápido: " + formatarTempo(operacoesModel.getTempoAtual()));
+        operacoesModel.setVelocidade(velocidade);
+        return true;
+    }
+
+    private void iniciar(){
+        if (timer != null){
+            timer.cancel();
+        }
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                int novoTempo  = operacoesModel.getTempoAtual() + 1;
+                operacoesModel.setTempoAtual(Math.min(novoTempo,operacoesModel.getDuracao()));
+                System.out.println("Tempo Atual: " + formatarTempo(operacoesModel.getTempoAtual()));
+                if (operacoesModel.getDuracao()<=operacoesModel.getTempoAtual()){
+                    parar();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask,0,1000);
+        operacoesModel.setComecar(true);
+        operacoesModel.setParar(false);
+        operacoesModel.setPausar(false);
+    }
+
+    private void pausar(){
+        if (timer!= null){
+            timer.cancel();
+            timer = null;
+        }
+        operacoesModel.setComecar(false);
+        operacoesModel.setParar(false);
+        operacoesModel.setPausar(true);
+    }
+
+    private void parar() {
+        if (timer != null){
+            timer.cancel();
+            timer = null;
+        }
+        operacoesModel.setTempoAtual(0);
+        operacoesModel.setComecar(false);
+        operacoesModel.setParar(true);
+        operacoesModel.setPausar(false);
     }
 
     @Override
@@ -76,5 +140,12 @@ public class OperacoesServiceImpl implements OperacoesService{
     @Override
     public boolean episodioAnterior(int episodioAtual) {
         return false;
+    }
+
+    private String formatarTempo(int tempoAtual) {
+        int horas = tempoAtual / 3600;
+        int minutos = (tempoAtual % 3600) / 60;
+        int segundos = tempoAtual % 60;
+        return String.format("%02d:%02d:%02d", horas, minutos, segundos);
     }
 }

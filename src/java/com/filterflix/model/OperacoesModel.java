@@ -17,6 +17,6 @@ public class OperacoesModel {
     private int velocidade;
     private boolean proximoEpisodio;
     private boolean episodioAnterior;
-
-
+    private int tempoAtual;
+    private int duracao;
 }
