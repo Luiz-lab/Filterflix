@@ -1,42 +1,29 @@
 package java.com.filterflix.model;
 
-import lombok.*;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-@Data
-@Getter
-@Setter
-@NoArgsConstructor
 public abstract class MidiaModel {
     private String titulo;
-    private ArrayList<GeneroModel> generos;
     private String genero;
     private double avaliacao;
     private String classificacao;
-    private String diretor;
-    private LocalDate lancamento;
+    private LocalDate dataLancamento;
     private String sinopse;
     private int duracao;
+    private String diretor;
+    private String capa; // String ASCII pra capa
 
-    public MidiaModel(String titulo, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento) {
+    public MidiaModel(String titulo, String genero, double avaliacao, String classificacao, LocalDate dataLancamento,
+                      String sinopse, int duracao, String diretor, String capa) {
         this.titulo = titulo;
-        this.generos = generos;
+        this.genero = genero;
         this.avaliacao = avaliacao;
         this.classificacao = classificacao;
+        this.dataLancamento = dataLancamento;
+        this.sinopse = sinopse;
+        this.duracao = duracao;
         this.diretor = diretor;
-        this.lancamento = lancamento;
-    }
-
-
-    public abstract void assistir();
-
-    public ArrayList<GeneroModel> getGeneros() {
-        return generos;
-    }
-
-    public void imprimirMidia() {
+        this.capa = capa;
     }
 
     public String getTitulo() {
@@ -47,12 +34,16 @@ public abstract class MidiaModel {
         this.titulo = titulo;
     }
 
-    public ArrayList<GeneroModel> getGenero() {
-        return generos;
+    public String getGenero() {
+        return genero;
     }
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public double getAvaliacao() {
+        return avaliacao;
     }
 
     public void setAvaliacao(double avaliacao) {
@@ -67,20 +58,12 @@ public abstract class MidiaModel {
         this.classificacao = classificacao;
     }
 
-    public String getDiretor() {
-        return diretor;
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
     }
 
-    public void setDiretor(String diretor) {
-        this.diretor = diretor;
-    }
-
-    public LocalDate getLancamento() {
-        return lancamento;
-    }
-
-    public void setLancamento(LocalDate lancamento) {
-        this.lancamento = lancamento;
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
 
     public String getSinopse() {
@@ -91,12 +74,29 @@ public abstract class MidiaModel {
         this.sinopse = sinopse;
     }
 
-    public double getDuracao() {
+    public int getDuracao() {
         return duracao;
     }
 
-    public double getAvaliacao() {
-    return  avaliacao;
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
     }
 
+    public String getDiretor() {
+        return diretor;
+    }
+
+    public void setDiretor(String diretor) {
+        this.diretor = diretor;
+    }
+
+    public String getCapa() {
+        return capa;
+    }
+
+    public void setCapa(String capa) {
+        this.capa = capa;
+    }
+
+    public abstract void exibirDetalhes();
 }

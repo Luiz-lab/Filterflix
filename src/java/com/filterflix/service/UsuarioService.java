@@ -4,7 +4,7 @@ import java.com.filterflix.model.UsuarioModel;
 import java.com.filterflix.repository.UsuarioRepository;
 import java.com.filterflix.system.Autenticavel;
 
-public class UsuarioService implements Autenticavel {
+public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -16,7 +16,6 @@ public class UsuarioService implements Autenticavel {
         usuarioRepository.salvarUsuario(usuario);
     }
 
-    @Override
     public boolean autenticar(String email, String senha) {
         UsuarioModel usuario = usuarioRepository.encontrarUsuarioPorEmail(email);
         return usuario != null && usuario.getSenha().equals(senha);

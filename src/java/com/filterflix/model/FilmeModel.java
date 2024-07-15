@@ -1,39 +1,25 @@
 package java.com.filterflix.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-public class FilmeModel extends MidiaModel{
-    private VideoModel video;
-    private int duracao;
 
-    public FilmeModel(String nome, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento, VideoModel video) {
-        super(nome, generos, avaliacao, classificacao, diretor, lancamento);
-        this.video = video;
-    }
+public class FilmeModel extends MidiaModel {
 
-    public FilmeModel() {
-        super();
+    public FilmeModel(String titulo, String genero, double avaliacao, String classificacao, LocalDate dataLancamento,
+                      String sinopse, int duracao, String diretor, String capa) {
+        super(titulo, genero, avaliacao, classificacao, dataLancamento, sinopse, duracao, diretor, capa);
     }
 
     @Override
-    public void assistir() {
-        video.rodar();
-    }
-
-    public VideoModel getVideo() {
-        return video;
-    }
-
-    public void setVideo(VideoModel video) {
-        this.video = video;
-    }
-
-    public double getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
+    public void exibirDetalhes() {
+        System.out.println("Título: " + getTitulo());
+        System.out.println("Gênero: " + getGenero());
+        System.out.println("Avaliação: " + getAvaliacao());
+        System.out.println("Classificação: " + getClassificacao());
+        System.out.println("Data de Lançamento: " + getDataLancamento());
+        System.out.println("Sinopse: " + getSinopse());
+        System.out.println("Duração: " + getDuracao() + " minutos");
+        System.out.println("Diretor: " + getDiretor());
+        System.out.println("Capa: \n" + getCapa());
     }
 }

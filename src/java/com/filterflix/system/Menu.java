@@ -1,13 +1,10 @@
 package java.com.filterflix.system;
 
-import java.com.filterflix.model.FilmeModel;
-import java.com.filterflix.model.MidiaModel;
-import java.com.filterflix.model.SerieModel;
+import java.com.filterflix.model.*;
 import java.com.filterflix.service.MidiaService;
 import java.com.filterflix.service.UsuarioService;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Scanner;
-
 
 public class Menu {
     private UsuarioService usuarioService;
@@ -20,23 +17,119 @@ public class Menu {
         this.scanner = new Scanner(System.in);
     }
 
-    public void mostrarMenu() {
-        System.out.println("Bem-vindo ao catálogo de filmes!");
+    public void mostrarMenuInicial() {
         while (true) {
-            System.out.println("1. Registrar");
-            System.out.println("2. Login");
-            System.out.println("3. Sair");
+            System.out.println("1. Entrar");
+            System.out.println("2. Criar Conta");
             int escolha = scanner.nextInt();
-            scanner.nextLine();  // Consumir nova linha
+            scanner.nextLine(); // Consumir a nova linha
 
             switch (escolha) {
                 case 1:
-                    registrar();
+                    if (entrar()) {
+                        mostrarMenuPerfil();
+                    }
                     break;
                 case 2:
-                    if (login()) {
-                        menuPrincipal();
-                    }
+                    criarConta();
+                    break;
+                default:
+                    System.out.println("Escolha inválida.");
+            }
+        }
+    }
+
+    private void criarConta() {
+        System.out.print("Digite seu e-mail: ");
+        String email = scanner.nextLine();
+        System.out.print("Digite sua senha: ");
+        String senha = scanner.nextLine();
+        usuarioService.registrarUsuario(email, senha);
+        System.out.println("Conta criada com sucesso.");
+    }
+
+    private boolean entrar() {
+        System.out.print("Digite seu e-mail: ");
+        String email = scanner.nextLine();
+        System.out.print("Digite sua senha: ");
+        String senha = scanner.nextLine();
+        if (usuarioService.autenticar(email, senha)) {
+            System.out.println("Login bem-sucedido.");
+            return true;
+        } else {
+            System.out.println("E-mail ou senha incorretos.");
+            return false;
+        }
+    }
+
+    private void mostrarMenuPerfil() {
+        System.out.println("1. Criar Perfil");
+        System.out.println("2. Selecionar Perfil");
+        int escolha = scanner.nextInt();
+        scanner.nextLine(); // Consumir a nova linha
+
+        switch (escolha) {
+            case 1:
+                criarPerfil();
+                break;
+            case 2:
+                selecionarPerfil();
+                break;
+            default:
+                System.out.println("Escolha inválida.");
+        }
+    }
+
+    private void criarPerfil() {
+        System.out.print("Digite o nome do perfil: ");
+        String nome = scanner.nextLine();
+        System.out.print("É um perfil infantil? (s/n): ");
+        boolean infantil = scanner.nextLine().equalsIgnoreCase("s");
+        UsuarioModel usuario = usuarioService.obterUsuarioLogado();
+        PerfilModel perfil = new PerfilModel(nome, infantil);
+        usuario.adicionarPerfil(perfil);
+        System.out.println("Perfil criado com sucesso.");
+        mostrarMenuCatalogo(perfil);
+    }
+
+    private void selecionarPerfil() {
+        UsuarioModel usuario = usuarioService.obterUsuarioLogado();
+        List<PerfilModel> perfis = usuario.getPerfis();
+        if (perfis.isEmpty()) {
+            System.out.println("Nenhum perfil encontrado. Crie um perfil primeiro.");
+            return;
+        }
+
+        System.out.println("Selecione um perfil:");
+        for (int i = 0; i < perfis.size(); i++) {
+            System.out.println((i + 1) + ". " + perfis.get(i).getNome());
+        }
+        int escolha = scanner.nextInt();
+        scanner.nextLine(); // Consumir a nova linha
+
+        if (escolha > 0 && escolha <= perfis.size()) {
+            PerfilModel perfilSelecionado = perfis.get(escolha - 1);
+            mostrarMenuCatalogo(perfilSelecionado);
+        } else {
+            System.out.println("Escolha inválida.");
+        }
+    }
+
+    private void mostrarMenuCatalogo(PerfilModel perfil) {
+        System.out.println("Bem-vindo ao catálogo, " + perfil.getNome() + "!");
+        while (true) {
+            System.out.println("1. Listar Mídias");
+            System.out.println("2. Adicionar Mídia");
+            System.out.println("3. Sair");
+            int escolha = scanner.nextInt();
+            scanner.nextLine(); // Consumir a nova linha
+
+            switch (escolha) {
+                case 1:
+                    listarMidias();
+                    break;
+                case 2:
+                    adicionarMidia();
                     break;
                 case 3:
                     System.out.println("Saindo...");
@@ -47,111 +140,57 @@ public class Menu {
         }
     }
 
-    private void registrar() {
-        System.out.print("Digite seu email: ");
-        String email = scanner.nextLine();
-        System.out.print("Digite sua senha: ");
-        String senha = scanner.nextLine();
-        usuarioService.registrarUsuario(email, senha);
-        System.out.println("Usuário registrado com sucesso.");
-    }
-
-    private boolean login() {
-        System.out.print("Digite seu email: ");
-        String email = scanner.nextLine();
-        System.out.print("Digite sua senha: ");
-        String senha = scanner.nextLine();
-        if (usuarioService.autenticar(email, senha)) {
-            System.out.println("Login bem-sucedido.");
-            return true;
-        } else {
-            System.out.println("Email ou senha incorretos.");
-            return false;
-        }
-    }
-
-    private void menuPrincipal() {
-        while (true) {
-            System.out.println("1. Adicionar Filme");
-            System.out.println("2. Adicionar Série");
-            System.out.println("3. Listar Mídias");
-            System.out.println("4. Logout");
-            int escolha = scanner.nextInt();
-            scanner.nextLine();  // Consumir nova linha
-
-            switch (escolha) {
-                case 1:
-                    adicionarFilme();
-                    break;
-                case 2:
-                    adicionarSerie();
-                    break;
-                case 3:
-                    listarMidias();
-                    break;
-                case 4:
-                    System.out.println("Logout bem-sucedido.");
-                    return;
-                default:
-                    System.out.println("Escolha inválida.");
-            }
-        }
-    }
-
-    private void adicionarFilme() {
-        FilmeModel filme = new FilmeModel();
-        System.out.print("Título: ");
-        filme.setTitulo(scanner.nextLine());
-        System.out.print("Duração: ");
-        filme.setDuracao(scanner.nextInt());
-        scanner.nextLine();  // Consumir nova linha
-        System.out.print("Classificação: ");
-        filme.setClassificacao(scanner.nextLine());
-        System.out.print("Avaliação: ");
-        filme.setAvaliacao(scanner.nextDouble());
-        scanner.nextLine();  // Consumir nova linha
-        System.out.print("Sinopse: ");
-        filme.setSinopse(scanner.nextLine());
-        System.out.print("Gênero: ");
-        filme.setGenero(scanner.nextLine());
-
-        midiaService.adicionarMidia(filme);
-        System.out.println("Filme adicionado com sucesso.");
-    }
-
-    private void adicionarSerie() {
-        SerieModel serie = new SerieModel();
-        System.out.print("Título: ");
-        serie.setTitulo(scanner.nextLine());
-        System.out.print("Duração: ");
-        serie.setDuracao(scanner.nextInt());
-        scanner.nextLine();  // Consumir nova linha
-        System.out.print("Classificação: ");
-        serie.setClassificacao(scanner.nextLine());
-        System.out.print("Avaliação: ");
-        serie.setAvaliacao(scanner.nextDouble());
-        scanner.nextLine();  // Consumir nova linha
-        System.out.print("Sinopse: ");
-        serie.setSinopse(scanner.nextLine());
-        System.out.print("Gênero: ");
-        serie.setGenero(scanner.nextLine());
-        System.out.print("Número de Episódios: ");
-        serie.setNumeroDeEpisodios(scanner.nextInt());
-        scanner.nextLine();  // Consumir nova linha
-
-        midiaService.adicionarMidia(serie);
-        System.out.println("Série adicionada com sucesso.");
-    }
-
     private void listarMidias() {
         List<MidiaModel> midias = midiaService.listarMidias();
+        if (midias.isEmpty()) {
+            System.out.println("Nenhuma mídia encontrada.");
+            return;
+        }
+
         for (MidiaModel midia : midias) {
-            System.out.println("Título: " + midia.getTitulo());
-            System.out.println("Duração: " + midia.getDuracao());
-            System.out.println("Classificação: " + midia.getClassificacao());
-            System.out.println("Avaliação: " + midia.getAvaliacao());
-            System.out.println("Sinopse: " + midia.getSinopse());
-            System.out.println("Gênero: " + midia.getGenero());
+            midia.exibirDetalhes();
+            System.out.println("-----------------------------");
+        }
+    }
+
+    private void adicionarMidia() {
+        System.out.print("Digite o título: ");
+        String titulo = scanner.nextLine();
+        System.out.print("Digite o gênero: ");
+        String genero = scanner.nextLine();
+        System.out.print("Digite a avaliação: ");
+        double avaliacao = scanner.nextDouble();
+        scanner.nextLine(); // Consumir a nova linha
+        System.out.print("Digite a classificação: ");
+        String classificacao = scanner.nextLine();
+        System.out.print("Digite a data de lançamento (YYYY-MM-DD): ");
+        LocalDate dataLancamento = LocalDate.parse(scanner.nextLine());
+        System.out.print("Digite a sinopse: ");
+        String sinopse = scanner.nextLine();
+        System.out.print("Digite a duração em minutos: ");
+        int duracao = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Digite o diretor: ");
+        String diretor = scanner.nextLine();
+        System.out.print("Digite a capa (ASCII art): ");
+        String capa = scanner.nextLine();
+        System.out.print("Digite o tipo de mídia (1 para Filme, 2 para Série): ");
+        int tipo = scanner.nextInt();
+        scanner.nextLine();
+
+        if (tipo == 1) {
+            FilmeModel filme = new FilmeModel(titulo, genero, avaliacao, classificacao, dataLancamento, sinopse, duracao, diretor, capa);
+            midiaService.adicionarMidia(filme);
+            System.out.println("Filme adicionado com sucesso.");
+        } else if (tipo == 2) {
+            System.out.print("Digite o número de episódios: ");
+            int numeroDeEpisodios = scanner.nextInt();
+            scanner.nextLine();
+            SerieModel serie = new SerieModel(titulo, genero, avaliacao, classificacao, dataLancamento, sinopse, duracao, diretor, capa, numeroDeEpisodios);
+            midiaService.adicionarMidia(serie);
+            System.out.println("Série adicionada com sucesso.");
+        } else {
+            System.out.println("Tipo de mídia inválido.");
         }
     }
 }

@@ -4,7 +4,10 @@ import java.com.filterflix.model.MidiaModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MidiaRepositoryImp implements MidiaRepository {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MidiaRepositoryImpl implements MidiaRepository {
     private List<MidiaModel> midias = new ArrayList<>();
 
     @Override

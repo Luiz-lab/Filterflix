@@ -4,7 +4,10 @@ import java.com.filterflix.model.UsuarioModel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsuarioRepositoryImp implements UsuarioRepository {
+import java.util.HashMap;
+import java.util.Map;
+
+public class UsuarioRepositoryImpl implements UsuarioRepository {
     private Map<String, UsuarioModel> usuarios = new HashMap<>();
 
     @Override

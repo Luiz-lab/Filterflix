@@ -1,37 +1,35 @@
 package java.com.filterflix.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-public class SerieModel extends MidiaModel{
+public class SerieModel extends MidiaModel {
+        private int numeroDeEpisodios;
 
-    private ArrayList<VideoModel> episodios;
-    private int numeroDeEpisodios = 0;
-
-    public SerieModel(String nome, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento, ArrayList<VideoModel> episodios) {
-        super(nome, generos, avaliacao, classificacao, diretor, lancamento);
-
-        this.episodios = episodios;
+    public SerieModel(String titulo, String genero, double avaliacao, String classificacao, LocalDate dataLancamento,
+                      String sinopse, int duracao, String diretor, String capa, int numeroDeEpisodios) {
+        super(titulo, genero, avaliacao, classificacao, dataLancamento, sinopse, duracao, diretor, capa);
+        this.numeroDeEpisodios = numeroDeEpisodios;
     }
 
-    public SerieModel() {
-
+    public int getNumeroDeEpisodios() {
+        return numeroDeEpisodios;
     }
 
-    public void escolherEpisodio(int numEpisodio) {
-        this.numeroDeEpisodios = numEpisodio;
-        assistir();
+    public void setNumeroDeEpisodios(int numeroDeEpisodios) {
+        this.numeroDeEpisodios = numeroDeEpisodios;
     }
 
     @Override
-    public void assistir() {
-        episodios.get(numeroDeEpisodios).rodar();
-        numeroDeEpisodios++;
-    }
-
-    public void setDuracao(int i) {
-    }
-
-    public void setNumeroDeEpisodios(int i) {
+    public void exibirDetalhes() {
+        System.out.println("Título: " + getTitulo());
+        System.out.println("Gênero: " + getGenero());
+        System.out.println("Avaliação: " + getAvaliacao());
+        System.out.println("Classificação: " + getClassificacao());
+        System.out.println("Data de Lançamento: " + getDataLancamento());
+        System.out.println("Sinopse: " + getSinopse());
+        System.out.println("Duração: " + getDuracao() + " minutos");
+        System.out.println("Diretor: " + getDiretor());
+        System.out.println("Número de Episódios: " + getNumeroDeEpisodios());
+        System.out.println("Capa: \n" + getCapa());
     }
 }
