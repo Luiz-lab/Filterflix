@@ -147,7 +147,7 @@ public class Menu {
         exibirMidias(series);
 
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                      Digite o número da mídia , * para o menu perfil, ou 0 para sair:                   ║");
+        System.out.println("║                      Digite o número da mídia, * para o menu perfil, ou 0 para sair:                    ║");
         System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
         while (true) {
@@ -185,24 +185,27 @@ public class Menu {
             String titulo2 = (midia2 != null) ? centralizarTexto(midia2.getTitulo(), 50) : centralizarTexto("", 50);
 
             System.out.println("╔════════════════════════════════════════════════════╦════════════════════════════════════════════════════╗");
-            System.out.printf("║ %-50s ║ %-50s ║\n", capa1, capa2);
+            System.out.printf(" %-52s  %-53s \n", capa1, capa2);
             System.out.println("╠════════════════════════════════════════════════════╬════════════════════════════════════════════════════╣");
-            System.out.printf("║ %-50s ║ %-50s ║\n", titulo1, titulo2);
+            System.out.printf(" %-49s  %-50s \n", titulo1, titulo2);
             System.out.println("╚════════════════════════════════════════════════════╩════════════════════════════════════════════════════╝");
         }
     }
 
     private String centralizarTexto(String texto, int largura) {
-        int espacosPadding = (largura - texto.length()) / 2;
-        StringBuilder espacos = new StringBuilder();
-        for (int i = 0; i < espacosPadding; i++) {
-            espacos.append(" ");
-        }
-        if ((texto.length() % 2) != (largura % 2)) {
+        int tamanhoTexto = texto.length();
+        int espacosPadding = (largura - tamanhoTexto) / 2;
+        StringBuilder padding = new StringBuilder();
 
-            espacos.append(" ");
+        for (int i = 0; i < espacosPadding; i++) {
+            padding.append(" ");
         }
-        return espacos.toString() + texto + espacos.toString();
+
+        if (tamanhoTexto % 2 != 0) {
+            padding.append(" ");
+        }
+
+        return padding.toString() + texto + padding.toString();
     }
 
     private void detalharMidia(MidiaModel midia) {
@@ -315,7 +318,6 @@ public class Menu {
 
     private void mostrarFilmesAssistidos(UsuarioModel usuario) {
         if (perfilAtivo != null) {
-            // Exibir filmes assistidos (futuro desenvolvimento)
             System.out.println("Filmes Assistidos não implementados.");
         } else {
             System.out.println("Nenhum perfil ativo encontrado.");
