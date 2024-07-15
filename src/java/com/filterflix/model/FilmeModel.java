@@ -29,7 +29,7 @@ public class FilmeModel extends MidiaModel{
         this.video = video;
     }
 
-    public double getDuracao() {
+    public int  getDuracao() {
         return duracao;
     }
 

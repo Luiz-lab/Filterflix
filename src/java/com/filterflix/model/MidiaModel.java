@@ -91,8 +91,12 @@ public abstract class MidiaModel {
         this.sinopse = sinopse;
     }
 
-    public double getDuracao() {
+    public int getDuracao() {
         return duracao;
+    }
+
+    public void setDuracao(int duracao){
+        this.duracao = duracao;
     }
 
     public double getAvaliacao() {

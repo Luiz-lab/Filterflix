@@ -7,6 +7,7 @@ public class SerieModel extends MidiaModel{
 
     private ArrayList<VideoModel> episodios;
     private int numeroDeEpisodios = 0;
+    private int duracao;
 
     public SerieModel(String nome, ArrayList<GeneroModel> generos, double avaliacao, String classificacao, String diretor, LocalDate lancamento, ArrayList<VideoModel> episodios) {
         super(nome, generos, avaliacao, classificacao, diretor, lancamento);
@@ -29,9 +30,15 @@ public class SerieModel extends MidiaModel{
         numeroDeEpisodios++;
     }
 
-    public void setDuracao(int i) {
+    public int getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
     }
 
     public void setNumeroDeEpisodios(int i) {
     }
+
 }
