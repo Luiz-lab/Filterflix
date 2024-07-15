@@ -4,8 +4,8 @@ import java.com.filterflix.model.*;
 import java.com.filterflix.service.MidiaService;
 import java.com.filterflix.service.UsuarioService;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
+import java.util.List;
 
 public class Menu {
     private UsuarioService usuarioService;
