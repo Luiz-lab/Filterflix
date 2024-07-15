@@ -45,6 +45,7 @@ public class PerfilModel {
             throw new IllegalArgumentException("Nota entre 1 e 10.");
         }
         avaliacoes.put(midia, nota);
+
     }
 
     public boolean podeAcessarMidia(MidiaModel midia) {

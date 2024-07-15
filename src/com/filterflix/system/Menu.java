@@ -290,9 +290,11 @@ public class Menu {
 
             if (opcao == 1) {
                 avaliarMidia(midia, scanner);
+                mostrarMenuCatalogo();
                 break;
             } else if (opcao == 2) {
                 System.out.println("Retornando ao catálogo...");
+                mostrarMenuCatalogo();
                 break;
             } else {
                 System.out.println("Opção inválida, tente novamente.");
