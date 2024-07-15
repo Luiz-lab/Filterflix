@@ -51,7 +51,7 @@ public class Menu {
 
 
         if (!usuarioService.isValidEmail(email)) {
-            System.out.println("Informe um e-mail válido.");
+            System.out.println("Ops.. Isso não parece um e-mail! Informe um e-mail válido.");
             criarConta();
             return;
         }
@@ -59,6 +59,7 @@ public class Menu {
         System.out.print("Digite sua senha: ");
         String senha = scanner.nextLine();
         usuarioService.registrarUsuario(email, senha);
+        System.out.println();
         System.out.println("Conta criada com sucesso.");
     }
 
@@ -67,14 +68,18 @@ public class Menu {
         String email = scanner.nextLine();
 
         if (!usuarioService.isValidEmail(email)) {
-            System.out.println("Informe um e-mail válido.");
+            System.out.println("Ops.. Isso não parece um e-mail! Informe um e-mail válido.");
             return false;
         }
 
         System.out.print("Digite sua senha: ");
         String senha = scanner.nextLine();
         if (usuarioService.autenticar(email, senha)) {
-            System.out.println("Login bem-sucedido.");
+            System.out.println();
+            System.out.println("╔════════════════════════════════════════╗");
+            System.out.println("║    \033[1mLogin bem-sucedido.\033[0m                 ║");
+            System.out.println("╚════════════════════════════════════════╝");
+
 
             UsuarioModel usuario = usuarioService.getUsuario(email);
             if (usuario != null && usuario.getPerfis().isEmpty()) {
@@ -89,13 +94,32 @@ public class Menu {
     }
 
     private void criarPerfil(UsuarioModel usuario) {
-        System.out.println("Você precisa criar um perfil.");
-        System.out.print("Digite o nome do perfil: ");
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║    Para começarmos, crie um Perfil:    ║");
+        System.out.println("╚════════════════════════════════════════╝");
+
+
+        System.out.print("\nDigite o nome do perfil: ");
         String nome = scanner.nextLine();
-        System.out.print("É um perfil infantil? (s/n): ");
-        boolean infantil = scanner.nextLine().equalsIgnoreCase("s");
+
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║            Tipo de Perfil:             ║");
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.println("║   1. \033[1mPerfil Adulto\033[0m                     ║");
+        System.out.println("║   2. \033[1mPerfil Infantil\033[0m                   ║");
+        System.out.println("╚════════════════════════════════════════╝");
+
+        System.out.print("Escolha uma opção: ");
+        int escolha = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean infantil = escolha == 2;
+
         usuarioService.criarPerfil(usuario.getEmail(), nome, infantil);
-        System.out.println("Perfil criado com sucesso.");
+        System.out.println();
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║        \033[1mPerfil criado com sucesso.\033[0m      ║");
+        System.out.println("╚════════════════════════════════════════╝");
     }
 
     private void mostrarMenuCatalogo() {
