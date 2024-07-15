@@ -227,7 +227,7 @@ public class Menu {
                 salvarNaLista(midia);
                 break;
             case 2:
-                avaliarMidia(midia);
+                avaliarMidia(midia, scanner);
                 break;
             case 3:
                 reproduzirMidia(midia);
@@ -251,11 +251,11 @@ public class Menu {
         }
     }
 
-    private void avaliarMidia(MidiaModel midia) {
+    private void avaliarMidia(MidiaModel midia, Scanner scanner) {
         if (perfilAtivo != null) {
             System.out.print("Digite a nova avaliação (de 1 a 10): ");
-            int nota = scanner.nextInt();
-            scanner.nextLine();
+            int nota = this.scanner.nextInt();
+            this.scanner.nextLine();
             perfilAtivo.avaliarMidia(midia, nota);
             System.out.println("Avaliação salva.");
         } else {
@@ -265,7 +265,39 @@ public class Menu {
 
     private void reproduzirMidia(MidiaModel midia) {
         System.out.println("Reproduzindo " + midia.getTitulo() + "...");
-        System.out.println(midia.reproduzirInicio());
+        String texto = midia.reproduzirInicio();
+        String amarelo = "\033[33m";
+        String reset = "\033[0m";
+
+        for (char c : texto.toCharArray()) {
+            System.out.print(amarelo + c + reset);
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println();
+        System.out.println("The End");
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Escolha uma opção:");
+            System.out.println("1. Avaliar");
+            System.out.println("2. Retornar ao Catálogo");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            if (opcao == 1) {
+                avaliarMidia(midia, scanner);
+                break;
+            } else if (opcao == 2) {
+                System.out.println("Retornando ao catálogo...");
+                break;
+            } else {
+                System.out.println("Opção inválida, tente novamente.");
+            }
+        }
     }
 
     public void mostrarMenuPerfil() {
@@ -338,7 +370,7 @@ public class Menu {
                 System.out.println("Nenhum filme avaliado.");
             }
         } else {
-            System.out.println("Nenhum perfil ativo encontrado.");// teste
+            System.out.println("Nenhum perfil ativo encontrado.");
         }
     }
 }
