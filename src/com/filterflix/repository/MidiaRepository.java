@@ -41,7 +41,7 @@ public abstract class MidiaRepository {
         series.add(new SerieModel("Stranger Things", "Ficção Científica", 8.8, "16", null, "Crianças enfrentam eventos sobrenaturais em uma pequena cidade.", 25, "Irmãos Duffer", "🤓🌌",4));
         series.add(new SerieModel("Breaking Bad", "Drama", 9.5, "18", null, "Um professor de química com câncer começa a fabricar metanfetamina para sustentar sua família.", 62, "Vince Gilligan", "👩‍🎓💨",5));
         series.add(new SerieModel("The Witcher", "Fantasia", 8.2, "18", null, "Um caçador de monstros luta para encontrar seu lugar em um mundo onde as pessoas são frequentemente mais perversas que as bestas.", 24, "Lauren Schmidt Hissrich", " 🧝‍♂️🗡️ ",3));
-        series.add(new SerieModel("Rick and Morty", "Animação", 9.2, "16", null, "Um cientista louco e seu neto vivem aventuras interdimensionais.", 41, "Dan Harmon", " 🎓👽 ",100));
+        series.add(new SerieModel("Rick and Morty", "Ficção Científica", 9.2, "16", null, "Um cientista louco e seu neto vivem aventuras interdimensionais.", 41, "Dan Harmon", " 🎓👽 ",100));
     }
 
     public abstract void salvarMidia(MidiaModel midia);
