@@ -1,7 +1,10 @@
-import java.com.filterflix.repository.*;
-import java.com.filterflix.service.MidiaService;
-import java.com.filterflix.service.UsuarioService;
-import java.com.filterflix.system.Menu;
+import com.filterflix.repository.MidiaRepository;
+import com.filterflix.repository.MidiaRepositoryImpl;
+import com.filterflix.repository.UsuarioRepository;
+import com.filterflix.repository.UsuarioRepositoryImpl;
+import com.filterflix.service.MidiaService;
+import com.filterflix.service.UsuarioService;
+import com.filterflix.system.Menu;
 
 public class Main {
     public static void main(String[] args) {
