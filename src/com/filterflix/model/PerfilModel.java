@@ -19,7 +19,9 @@ public class PerfilModel {
     }
 
     public void adicionarFavorito(MidiaModel midia) {
-        favoritos.add(midia);
+        if (!favoritos.contains(midia)) {
+            favoritos.add(midia);
+        }
     }
 
     public String getNome() {
@@ -40,9 +42,8 @@ public class PerfilModel {
 
     public void avaliarMidia(MidiaModel midia, int nota) {
         if (nota < 1 || nota > 10) {
-            throw new IllegalArgumentException("A nota deve estar entre 1 e 10.");
+            throw new IllegalArgumentException("Nota entre 1 e 10.");
         }
-        midia.setAvaliacao(nota);
         avaliacoes.put(midia, nota);
     }
 
@@ -50,11 +51,7 @@ public class PerfilModel {
         String classificacao = midia.getClassificacao();
 
         if (infantil) {
-            if (classificacao.equals("L") || classificacao.equals("10") || classificacao.equals("12") || classificacao.equals("14")) {
-                return true;
-            } else {
-                return false;
-            }
+            return classificacao.equals("L") || classificacao.equals("10") || classificacao.equals("12") || classificacao.equals("14");
         }
 
         return true;
