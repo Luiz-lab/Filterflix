@@ -151,24 +151,32 @@ public class Menu {
         System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
         while (true) {
-            String escolha = scanner.nextLine();
+            try{
+                String escolha = scanner.nextLine();
 
-            if (escolha.equals("0")) {
-                System.out.println("Saindo do catálogo...");
-                break;
-            } else if (escolha.equals("*")) {
-                mostrarMenuPerfil();
-            } else {
-                int escolhaInt = Integer.parseInt(escolha);
-                if (escolhaInt > 0 && escolhaInt <= filmes.size() + series.size()) {
-                    if (escolhaInt <= filmes.size()) {
-                        detalharMidia(filmes.get(escolhaInt - 1));
-                    } else {
-                        detalharMidia(series.get(escolhaInt - filmes.size() - 1));
-                    }
+                if (escolha.equals("0")) {
+                    System.out.println("Saindo do catálogo...");
+                    break;
+                } else if (escolha.equals("*")) {
+                    mostrarMenuPerfil();
                 } else {
-                    System.out.println("Opção inválida. Tente novamente.");
+                    int escolhaInt = Integer.parseInt(escolha);
+                    if (escolhaInt > 0 && escolhaInt <= filmes.size() + series.size()) {
+                        if (escolhaInt <= filmes.size()) {
+                            detalharMidia(filmes.get(escolhaInt - 1));
+                        } else {
+                            detalharMidia(series.get(escolhaInt - filmes.size() - 1));
+                        }
+                    } else {
+                        System.out.println("Opção inválida. Tente novamente.");
+                    }
                 }
+            }catch (NumberFormatException e){
+                System.out.println("Entrada inválida. Por favor, digite um número válido.");
+            }catch (IndexOutOfBoundsException e) {
+                System.out.println("Número fora do intervalo. Por favor, escolha um número dentro do intervalo válido.");
+            } catch (Exception e) {
+                System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
             }
         }
     }

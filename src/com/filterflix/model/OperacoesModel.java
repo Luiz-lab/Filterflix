@@ -12,7 +12,7 @@ public class OperacoesModel {
     private boolean comecar;
     private boolean parar;
     private boolean pausar;
-    private boolean avancoRpaido;
+    private boolean avancoRapido;
     private boolean retroceder;
     private int velocidade;
     private boolean proximoEpisodio;
