@@ -68,4 +68,6 @@ public abstract class MidiaModel {
     }
 
     public abstract void exibirDetalhes();
+
+    public abstract String reproduzirInicio();
 }

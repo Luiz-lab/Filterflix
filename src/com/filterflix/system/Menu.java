@@ -265,6 +265,7 @@ public class Menu {
 
     private void reproduzirMidia(MidiaModel midia) {
         System.out.println("Reproduzindo " + midia.getTitulo() + "...");
+        System.out.println(midia.reproduzirInicio());
     }
 
     public void mostrarMenuPerfil() {
