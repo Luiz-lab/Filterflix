@@ -17,4 +17,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     public UsuarioModel encontrarUsuarioPorEmail(String email) {
         return usuarios.get(email);
     }
+
+    @Override
+    public void atualizarUsuario(UsuarioModel usuario) {
+        usuarios.put(usuario.getEmail(), usuario);
+    }
 }

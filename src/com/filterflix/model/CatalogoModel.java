@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class CatalogoModel {
     private ArrayList<MidiaModel> midias;
-    private PerfilModel perfilAtivo;
+    private PerfilModel perfilAtivo; // Adicionando perfil ativo
 
     public CatalogoModel(PerfilModel perfilAtivo) {
         this.midias = new ArrayList<>();
