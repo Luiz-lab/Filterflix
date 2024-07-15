@@ -337,7 +337,7 @@ public class Menu {
                 System.out.println("Nenhum filme avaliado.");
             }
         } else {
-            System.out.println("Nenhum perfil ativo encontrado.");
+            System.out.println("Nenhum perfil ativo encontrado.");// teste
         }
     }
 }
