@@ -53,11 +53,9 @@ public class OperacoesServiceImpl implements OperacoesService{
                 return true;
             }
             case ALTERAR_LEGENDA -> {
-                // Falta adicionar logica pra alterar legenda
                 return true;
             }
             case ALTERAR_AUDIO -> {
-                // Falta adicionar logica pra alterar o audio
                 return true;
             }
             default -> throw new IllegalArgumentException("Operação não suportada: " + operacao);

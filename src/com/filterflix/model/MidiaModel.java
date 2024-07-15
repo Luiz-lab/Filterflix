@@ -30,7 +30,6 @@ public abstract class MidiaModel {
         this.avaliacao = avaliacao;
     }
 
-    // Getters e setters
 
     public String getTitulo() {
         return titulo;

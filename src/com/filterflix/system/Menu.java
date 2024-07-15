@@ -123,28 +123,43 @@ public class Menu {
     }
 
     private void mostrarMenuCatalogo() {
-        System.out.println("____________________________________________________________________________________________");
-        System.out.println("\nBem-vindo à Filterflix!\n");
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                                       \033[1mBem-vindo à Filterflix!\033[0m                                           ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
         List<FilmeModel> filmes = midiaService.listarFilmes();
         List<SerieModel> series = midiaService.listarSeries();
 
-        System.out.println("Filmes:");
-        for (int i = 0; i < filmes.size(); i++) {
-            System.out.println(filmes.get(i).getCapa());
-            System.out.println(filmes.get(i).getTitulo());
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                                                Filmes                                                   ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+
+        for (int i = 0; i < filmes.size(); i += 2) {
+            System.out.println("╔════════════════════════════════════════════════════╦════════════════════════════════════════════════════╗");
+            System.out.printf("║ %-50s ║ %-50s ║\n", filmes.get(i).getCapa(), (i + 1 < filmes.size() ? filmes.get(i + 1).getCapa() : ""));
+            System.out.println("╠════════════════════════════════════════════════════╬════════════════════════════════════════════════════╣");
+            System.out.printf("║ %-50s ║ %-50s ║\n", centerText(filmes.get(i).getTitulo(), 50), (i + 1 < filmes.size() ? centerText(filmes.get(i + 1).getTitulo(), 50) : ""));
+            System.out.println("╚════════════════════════════════════════════════════╩════════════════════════════════════════════════════╝");
         }
 
-        System.out.println("\nSéries:");
-        for (int i = 0; i < series.size(); i++) {
-            System.out.println(series.get(i).getCapa());
-            System.out.println(series.get(i).getTitulo());
+        System.out.println();
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                                                   Séries                                                ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+
+        for (int i = 0; i < series.size(); i += 2) {
+            System.out.println("╔════════════════════════════════════════════════════╦════════════════════════════════════════════════════╗");
+            System.out.printf("║ %-50s ║ %-50s ║\n", series.get(i).getCapa(), (i + 1 < series.size() ? series.get(i + 1).getCapa() : ""));
+            System.out.println("╠════════════════════════════════════════════════════╬════════════════════════════════════════════════════╣");
+            System.out.printf("║ %-50s ║ %-50s ║\n", centerText(series.get(i).getTitulo(), 50), (i + 1 < series.size() ? centerText(series.get(i + 1).getTitulo(), 50) : ""));
+            System.out.println("╚════════════════════════════════════════════════════╩════════════════════════════════════════════════════╝");
         }
 
-        System.out.println("____________________________________________________________________________________________");
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                                    Escolha uma mídia (ou 0 para sair):                                  ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
         while (true) {
-            System.out.println("\nEscolha uma mídia para detalhes (ou 0 para sair): ");
             int escolha = scanner.nextInt();
             scanner.nextLine();
 
@@ -161,6 +176,22 @@ public class Menu {
                 System.out.println("Opção inválida.");
             }
         }
+    }
+
+    private String centerText(String text, int width) {
+        if (text.length() >= width) {
+            return text.substring(0, width);
+        }
+        int padding = (width - text.length()) / 2;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < padding; i++) {
+            sb.append(" ");
+        }
+        sb.append(text);
+        while (sb.length() < width) {
+            sb.append(" ");
+        }
+        return sb.toString();
     }
 
     private void detalharMidia(MidiaModel midia) {
@@ -201,7 +232,7 @@ public class Menu {
         if (usuario != null) {
             PerfilModel perfilAtivo = usuario.getPerfilAtivo();
             if (perfilAtivo != null) {
-                perfilAtivo.adicionarFavorito(midia);  // Alterado para adicionarFavorito em vez de salvarNaLista
+                perfilAtivo.adicionarFavorito(midia);
                 usuarioService.atualizarUsuario(usuario);
                 System.out.println("Mídia salva na lista de favoritos.");
             } else {
@@ -233,7 +264,6 @@ public class Menu {
 
     private void reproduzirMidia(MidiaModel midia) {
         System.out.println("Reproduzindo " + midia.getTitulo() + "...");
-        // Lógica de reprodução
     }
 
     public void mostrarMenuPerfil() {
@@ -288,14 +318,14 @@ public class Menu {
     }
 
     private void mostrarFilmesAssistidos(UsuarioModel usuario) {
-        // Lógica para mostrar filmes assistidos
+
         System.out.println("Filmes Assistidos:");
-        // Implemente conforme necessário
+
     }
 
     private void mostrarFilmesAvaliados(UsuarioModel usuario) {
-        // Lógica para mostrar filmes avaliados
+
         System.out.println("Filmes Avaliados:");
-        // Implemente conforme necessário
+
     }
 }
