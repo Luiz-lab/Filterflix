@@ -234,6 +234,7 @@ public class Menu {
                 break;
             case 0:
                 System.out.println("Voltando ao catálogo inicial...");
+                mostrarMenuCatalogo();
                 break;
             default:
                 System.out.println("Opção inválida.");
