@@ -5,7 +5,6 @@ import com.filterflix.model.*;
 import com.filterflix.service.MidiaService;
 import com.filterflix.service.UsuarioService;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.List;
@@ -97,34 +96,56 @@ public class Menu {
     }
 
     private void criarPerfil(UsuarioModel usuario) {
-        System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║    Para começarmos, crie um Perfil:    ║");
-        System.out.println("╚════════════════════════════════════════╝");
+        String nome = null;
+        boolean perfilCriado = false;
 
-        System.out.print("\nDigite o nome do perfil: ");
-        String nome = scanner.nextLine();
+        try {
+            System.out.println("╔════════════════════════════════════════╗");
+            System.out.println("║    Para começarmos, crie um Perfil:    ║");
+            System.out.println("╚════════════════════════════════════════╝");
 
-        System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║            Tipo de Perfil:             ║");
-        System.out.println("╠════════════════════════════════════════╣");
-        System.out.println("║   1. \033[1mPerfil Adulto\033[0m                     ║");
-        System.out.println("║   2. \033[1mPerfil Infantil\033[0m                   ║");
-        System.out.println("╚════════════════════════════════════════╝");
+            System.out.print("\nDigite o nome do perfil: ");
+            nome = scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Erro ao ler o nome do perfil: " + e.getMessage());
+            return;
+        }
 
-        System.out.print("Escolha uma opção: ");
-        int escolha = scanner.nextInt();
-        scanner.nextLine();
+        while (!perfilCriado) {
+            try {
+                System.out.println("╔════════════════════════════════════════╗");
+                System.out.println("║            Tipo de Perfil:             ║");
+                System.out.println("╠════════════════════════════════════════╣");
+                System.out.println("║   1. \033[1mPerfil Adulto\033[0m                     ║");
+                System.out.println("║   2. \033[1mPerfil Infantil\033[0m                   ║");
+                System.out.println("╚════════════════════════════════════════╝");
 
-        boolean infantil = escolha == 2;
+                System.out.print("Escolha uma opção: ");
+                int escolha = Integer.parseInt(scanner.nextLine());
 
-        usuarioService.criarPerfil(usuario.getEmail(), nome, infantil);
-        System.out.println();
-        System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║        \033[1mPerfil criado com sucesso.\033[0m      ║");
-        System.out.println("╚════════════════════════════════════════╝");
+                if (escolha == 1 || escolha == 2) {
+                    boolean infantil = escolha == 2;
 
-        perfilAtivo = usuarioService.getUsuario(usuario.getEmail()).getPerfis().get(0);
+                    usuarioService.criarPerfil(usuario.getEmail(), nome, infantil);
+                    System.out.println();
+                    System.out.println("╔════════════════════════════════════════╗");
+                    System.out.println("║        \033[1mPerfil criado com sucesso.\033[0m      ║");
+                    System.out.println("╚════════════════════════════════════════╝");
+
+                    perfilAtivo = usuarioService.getUsuario(usuario.getEmail()).getPerfis().get(0);
+                    perfilCriado = true;
+                } else {
+                    System.out.println("Opção inválida. Por favor, escolha 1 para Perfil Adulto ou 2 para Perfil Infantil.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, escolha 1 para Perfil Adulto ou 2 para Perfil Infantil.");
+            } catch (Exception e) {
+                System.out.println("Erro ao criar perfil: " + e.getMessage());
+                scanner.nextLine();
+            }
+        }
     }
+
 
     private void mostrarMenuCatalogo() {
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
@@ -148,30 +169,36 @@ public class Menu {
         exibirMidias(series);
 
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║            Digite o número da mídia, * para o menu perfil, p para pesquisar e 0 para sair:              ║");
+        System.out.println("║                      Digite o número da mídia, * para o menu perfil, ou 0 para sair:                    ║");
         System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
         while (true) {
-            String escolha = scanner.nextLine();
+            try{
+                String escolha = scanner.nextLine();
 
-            if (escolha.equals("0")) {
-                System.out.println("Saindo do catálogo...");
-                break;
-            } else if (escolha.equals("*")) {
-                mostrarMenuPerfil();
-            } else if (escolha.equalsIgnoreCase("p")) {
-                pesquisarMidiasPorGenero();
-            } else {
-                int escolhaInt = Integer.parseInt(escolha);
-                if (escolhaInt > 0 && escolhaInt <= filmes.size() + series.size()) {
-                    if (escolhaInt <= filmes.size()) {
-                        detalharMidia(filmes.get(escolhaInt - 1));
-                    } else {
-                        detalharMidia(series.get(escolhaInt - filmes.size() - 1));
-                    }
+                if (escolha.equals("0")) {
+                    System.out.println("Saindo do catálogo...");
+                    break;
+                } else if (escolha.equals("*")) {
+                    mostrarMenuPerfil();
                 } else {
-                    System.out.println("Opção inválida. Tente novamente.");
+                    int escolhaInt = Integer.parseInt(escolha);
+                    if (escolhaInt > 0 && escolhaInt <= filmes.size() + series.size()) {
+                        if (escolhaInt <= filmes.size()) {
+                            detalharMidia(filmes.get(escolhaInt - 1));
+                        } else {
+                            detalharMidia(series.get(escolhaInt - filmes.size() - 1));
+                        }
+                    } else {
+                        System.out.println("Opção inválida. Tente novamente.");
+                    }
                 }
+            }catch (NumberFormatException e){
+                System.out.println("Entrada inválida. Por favor, digite um número válido.");
+            }catch (IndexOutOfBoundsException e) {
+                System.out.println("Número fora do intervalo. Por favor, escolha um número dentro do intervalo válido.");
+            } catch (Exception e) {
+                System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
             }
         }
     }
@@ -192,35 +219,6 @@ public class Menu {
             System.out.println("╠════════════════════════════════════════════════════╬════════════════════════════════════════════════════╣");
             System.out.printf(" %-49s  %-50s \n", titulo1, titulo2);
             System.out.println("╚════════════════════════════════════════════════════╩════════════════════════════════════════════════════╝");
-        }
-    }
-
-    private void pesquisarMidiasPorGenero() {
-        ArrayList<String> generos = midiaService.listarGeneros();
-        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                        Digite o número equivalente ao gênero que deseja assistir:                       ║");
-        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
-        for (int i = 1; i <= generos.size(); i++) {
-            System.out.println(i+" - "+generos.get(i-1));
-        }
-        int r = scanner.nextInt();
-
-        ArrayList<MidiaModel> midiasGenero = midiaService.listarMidiasPorGenero(generos.get(r-1));
-        exibirMidias(midiasGenero);
-
-        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                          Digite o número da mídia que deseja ou 0 para voltar:                          ║");
-        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
-        while (true) {
-            int escolha = scanner.nextInt();
-            if (escolha == 0) {
-                break;
-            }
-            if (escolha < 1 || escolha > midiasGenero.size()) {
-                System.out.println("Opção inválida");
-            } else {
-                detalharMidia(midiasGenero.get(escolha-1));
-            }
         }
     }
 
@@ -322,9 +320,11 @@ public class Menu {
 
             if (opcao == 1) {
                 avaliarMidia(midia, scanner);
+                mostrarMenuCatalogo();
                 break;
             } else if (opcao == 2) {
                 System.out.println("Retornando ao catálogo...");
+                mostrarMenuCatalogo();
                 break;
             } else {
                 System.out.println("Opção inválida, tente novamente.");
