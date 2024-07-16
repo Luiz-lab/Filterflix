@@ -1,9 +1,11 @@
 package com.filterflix.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class SerieModel extends MidiaModel {
-        private int numeroDeEpisodios;
+    private ArrayList<VideoModel> episodios;
+    private int numeroDeEpisodios;
 
     public SerieModel(String titulo, String genero, double avaliacao, String classificacao, LocalDate dataLancamento,
                       String sinopse, int duracao, String diretor, String capa, int numeroDeEpisodios) {
@@ -18,6 +20,17 @@ public class SerieModel extends MidiaModel {
     public void setNumeroDeEpisodios(int numeroDeEpisodios) {
         this.numeroDeEpisodios = numeroDeEpisodios;
     }
+
+    public void escolherEpisodio(int numEpisodio) {
+        this.numeroDeEpisodios = numEpisodio;
+        assistir();
+    }
+
+    public void assistir() {
+        episodios.get(numeroDeEpisodios).rodar();
+        numeroDeEpisodios++;
+    }
+
 
     @Override
     public void exibirDetalhes() {

@@ -10,12 +10,14 @@ public class PerfilModel {
     private boolean infantil;
     private List<MidiaModel> favoritos;
     private Map<MidiaModel, Integer> avaliacoes;
+    private List<MidiaModel> filmesAssistidos;
 
     public PerfilModel(String nome, boolean infantil) {
         this.nome = nome;
         this.infantil = infantil;
         this.favoritos = new ArrayList<>();
         this.avaliacoes = new HashMap<>();
+        this.filmesAssistidos = new ArrayList<>();
     }
 
     public void adicionarFavorito(MidiaModel midia) {
@@ -45,6 +47,15 @@ public class PerfilModel {
             throw new IllegalArgumentException("Nota entre 1 e 10.");
         }
         avaliacoes.put(midia, nota);
+
+    }
+
+    public List<MidiaModel> getFilmesAssistidos() {
+        return filmesAssistidos;
+    }
+
+    public void setFilmesAssistidos(List<MidiaModel> filmesAssistidos) {
+        this.filmesAssistidos = filmesAssistidos;
     }
 
     public boolean podeAcessarMidia(MidiaModel midia) {
@@ -56,4 +67,11 @@ public class PerfilModel {
 
         return true;
     }
+
+    public void adicionarFilmesAssistidos(MidiaModel midiaModel){
+        if (!filmesAssistidos.contains(midiaModel)){
+            filmesAssistidos.add(midiaModel);
+        }
+    }
+
 }
