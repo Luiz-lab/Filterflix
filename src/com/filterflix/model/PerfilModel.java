@@ -10,6 +10,7 @@ public class PerfilModel {
     private boolean infantil;
     private List<MidiaModel> favoritos;
     private Map<MidiaModel, Integer> avaliacoes;
+    private List<MidiaModel> filmesAssistidos;
 
     public PerfilModel(String nome, boolean infantil) {
         this.nome = nome;
@@ -48,6 +49,14 @@ public class PerfilModel {
 
     }
 
+    public List<MidiaModel> getFilmesAssistidos() {
+        return filmesAssistidos;
+    }
+
+    public void setFilmesAssistidos(List<MidiaModel> filmesAssistidos) {
+        this.filmesAssistidos = filmesAssistidos;
+    }
+
     public boolean podeAcessarMidia(MidiaModel midia) {
         String classificacao = midia.getClassificacao();
 
@@ -57,4 +66,11 @@ public class PerfilModel {
 
         return true;
     }
+
+    public void adicionarFilmesAssistidos(MidiaModel midiaModel){
+        if (!filmesAssistidos.contains(midiaModel)){
+            filmesAssistidos.add(midiaModel);
+        }
+    }
+
 }

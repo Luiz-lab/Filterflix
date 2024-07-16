@@ -362,7 +362,15 @@ public class Menu {
 
     private void mostrarFilmesAssistidos(UsuarioModel usuario) {
         if (perfilAtivo != null) {
-            System.out.println("Filmes Assistidos não implementados.");
+            List<MidiaModel> filmesAssistidos = perfilAtivo.getFilmesAssistidos();
+            if (!filmesAssistidos.isEmpty()){
+                System.out.println("Filmes Assistidos: ");
+                filmesAssistidos.stream()
+                        .map(MidiaModel::getTitulo)
+                        .forEach(titulo-> System.out.println((filmesAssistidos.indexOf(titulo) + 1) + ". " + titulo));
+            }else {
+                System.out.println("Nenhum filme assistido.");
+            }
         } else {
             System.out.println("Nenhum perfil ativo encontrado.");
         }
