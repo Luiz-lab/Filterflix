@@ -14,6 +14,7 @@ public class Menu {
     private MidiaService midiaService;
     private Scanner scanner;
     private PerfilModel perfilAtivo;
+
     public Menu(UsuarioService usuarioService, MidiaService midiaService) {
         this.usuarioService = usuarioService;
         this.midiaService = midiaService;
@@ -460,3 +461,7 @@ public class Menu {
        }
     }
 }
+
+
+
+
