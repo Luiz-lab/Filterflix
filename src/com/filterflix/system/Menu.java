@@ -287,6 +287,7 @@ public class Menu {
         }
         System.out.println();
         System.out.println("The End");
+        perfilAtivo.adicionarFilmesAssistidos(midia);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -368,9 +369,13 @@ public class Menu {
                 filmesAssistidos.stream()
                         .map(MidiaModel::getTitulo)
                         .forEach(titulo-> System.out.println((filmesAssistidos.indexOf(titulo) + 1) + ". " + titulo));
+
             }else {
+                System.out.println("Pressione Enter para voltar ao menu.");
+                scanner.nextLine();
                 System.out.println("Nenhum filme assistido.");
             }
+            mostrarMenuPerfil();
         } else {
             System.out.println("Nenhum perfil ativo encontrado.");
         }

@@ -17,6 +17,7 @@ public class PerfilModel {
         this.infantil = infantil;
         this.favoritos = new ArrayList<>();
         this.avaliacoes = new HashMap<>();
+        this.filmesAssistidos = new ArrayList<>();
     }
 
     public void adicionarFavorito(MidiaModel midia) {
