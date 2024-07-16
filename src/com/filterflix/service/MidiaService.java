@@ -1,9 +1,11 @@
 package com.filterflix.service;
 
 import com.filterflix.model.FilmeModel;
+import com.filterflix.model.MidiaModel;
 import com.filterflix.model.SerieModel;
 import com.filterflix.repository.MidiaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MidiaService {
@@ -19,6 +21,12 @@ public class MidiaService {
 
     public List<SerieModel> listarSeries() {
         return midiaRepository.listarSeries();
+    }
+
+    public ArrayList<String> listarGeneros() { return midiaRepository.listarGeneros(); }
+
+    public ArrayList<MidiaModel> listarMidiasPorGenero(String genero) {
+        return midiaRepository.listarMidiasPorGenero(genero);
     }
 
     public void adicionarMidia(FilmeModel filme) {

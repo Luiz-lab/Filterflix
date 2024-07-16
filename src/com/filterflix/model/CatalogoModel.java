@@ -14,6 +14,16 @@ public class CatalogoModel {
         this.perfilAtivo = perfilAtivo;
     }
 
+    public ArrayList<String> getGeneros() {
+        ArrayList<String> generos = new ArrayList<>();
+        for (MidiaModel m : midias) {
+            if (!(generos.contains(m.getGenero()))) {
+                generos.add(m.getGenero());
+            }
+        }
+        return generos;
+    }
+
     public ArrayList<SerieModel> getSeries() {
         return midias.stream()
                 .filter(m -> m instanceof SerieModel)

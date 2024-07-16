@@ -5,6 +5,7 @@ import com.filterflix.model.*;
 import com.filterflix.service.MidiaService;
 import com.filterflix.service.UsuarioService;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.List;
@@ -147,7 +148,7 @@ public class Menu {
         exibirMidias(series);
 
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                      Digite o número da mídia, * para o menu perfil, ou 0 para sair:                    ║");
+        System.out.println("║            Digite o número da mídia, * para o menu perfil, p para pesquisar e 0 para sair:              ║");
         System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
 
         while (true) {
@@ -158,6 +159,8 @@ public class Menu {
                 break;
             } else if (escolha.equals("*")) {
                 mostrarMenuPerfil();
+            } else if (escolha.equalsIgnoreCase("p")) {
+                pesquisarMidiasPorGenero();
             } else {
                 int escolhaInt = Integer.parseInt(escolha);
                 if (escolhaInt > 0 && escolhaInt <= filmes.size() + series.size()) {
@@ -189,6 +192,35 @@ public class Menu {
             System.out.println("╠════════════════════════════════════════════════════╬════════════════════════════════════════════════════╣");
             System.out.printf(" %-49s  %-50s \n", titulo1, titulo2);
             System.out.println("╚════════════════════════════════════════════════════╩════════════════════════════════════════════════════╝");
+        }
+    }
+
+    private void pesquisarMidiasPorGenero() {
+        ArrayList<String> generos = midiaService.listarGeneros();
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                        Digite o número equivalente ao gênero que deseja assistir:                       ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+        for (int i = 1; i <= generos.size(); i++) {
+            System.out.println(i+" - "+generos.get(i-1));
+        }
+        int r = scanner.nextInt();
+
+        ArrayList<MidiaModel> midiasGenero = midiaService.listarMidiasPorGenero(generos.get(r-1));
+        exibirMidias(midiasGenero);
+
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                          Digite o número da mídia que deseja ou 0 para voltar:                          ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+        while (true) {
+            int escolha = scanner.nextInt();
+            if (escolha == 0) {
+                break;
+            }
+            if (escolha < 1 || escolha > midiasGenero.size()) {
+                System.out.println("Opção inválida");
+            } else {
+                detalharMidia(midiasGenero.get(escolha-1));
+            }
         }
     }
 

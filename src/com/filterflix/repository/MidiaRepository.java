@@ -4,6 +4,7 @@ import com.filterflix.model.FilmeModel;
 import com.filterflix.model.MidiaModel;
 import com.filterflix.model.SerieModel;
 
+import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,42 @@ public abstract class MidiaRepository {
 
     public List<SerieModel> listarSeries() {
         return new ArrayList<>(series);
+    }
+
+    public ArrayList<String> listarGeneros() {
+        ArrayList<String> generos = new ArrayList<>();
+
+        for (FilmeModel f : filmes) {
+            if (!(generos.contains(f.getGenero()))) {
+                generos.add(f.getGenero());
+            }
+        }
+
+        for (SerieModel s : series) {
+            if (!(generos.contains(s.getGenero()))) {
+                generos.add(s.getGenero());
+            }
+        }
+
+        return generos;
+    }
+
+    public ArrayList<MidiaModel> listarMidiasPorGenero(String genero) {
+        ArrayList<MidiaModel> midias = new ArrayList<>();
+
+        for (FilmeModel f : filmes) {
+            if (f.getGenero().equalsIgnoreCase(genero)) {
+                midias.add(f);
+            }
+        }
+
+        for (SerieModel s : series) {
+            if (s.getGenero().equalsIgnoreCase(genero)) {
+                midias.add(s);
+            }
+        }
+
+        return midias;
     }
 
     public void adicionarMidia(FilmeModel filme) {
