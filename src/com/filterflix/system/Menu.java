@@ -371,10 +371,11 @@ public class Menu {
                         .forEach(titulo-> System.out.println((filmesAssistidos.indexOf(titulo) + 1) + ". " + titulo));
 
             }else {
-                System.out.println("Pressione Enter para voltar ao menu.");
-                scanner.nextLine();
+
                 System.out.println("Nenhum filme assistido.");
             }
+            System.out.println("Pressione Enter para voltar ao menu.");
+            scanner.nextLine();
             mostrarMenuPerfil();
         } else {
             System.out.println("Nenhum perfil ativo encontrado.");
